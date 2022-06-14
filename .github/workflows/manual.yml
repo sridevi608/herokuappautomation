@@ -25,8 +25,8 @@ jobs:
     - name: Build with Maven
       run: mvn test -DtestngName="herokutest.xml"
       
-    - name: Deploy report page to Github Page
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v3
+      if: always() # always run even if the previous step fails
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./target/surefire-reports/emailable-report.html
+        report_paths: 'target/surefire-reports/junitreports/TEST-HerokoAppTest.xml'
